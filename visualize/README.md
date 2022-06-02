@@ -3,6 +3,8 @@
 
 - draw_scatter.py
   - ground truth(mos)와 preditcion score(pred) 사이의 선형성을 확인해보자 산점도를 그리는 코드
+  ![image](https://user-images.githubusercontent.com/69031537/171534426-e69b90bd-f0f8-49f0-987e-aa6043df2b42.png)
+
 
 - pca, t_SNE
   - 5개 채널 (레이블) 별 피쳐의 특징을 확인해보고자 고차원(3884차원) 을 저차원 (2차원, 3차원)으로 축소하여 피쳐 특징을 확인하는 코드
