@@ -29,4 +29,16 @@
 ### split dataset.py
 - 테스트 셋 없이 X, y만 넣은경우 train test split 해준다. 원하는 경로에 현재 시간으로 저장도 해준다
 
-### train test predict neural main neural_main 
+### train.py
+- 데이터셋을 입력하면 lightgbm, xgboost 등 학습하여 학습된 모델을 리턴합니다
+- RandomgridSearCV를 이용해서 파라미터 튜닝을 동시에 수행합니다
+
+### test.py
+- 위에서 학습된 regressor, scaler를 학습받아서 테스트 셋을 평가하여 회귀지표를 반환합니다
+- 회귀지표 : indicator_list = ['RMSE', 'R_suare', 'PLCC', 'SRCC']
+
+### neural_network.py
+- 그동안은 regressor을 머신러닝 사이킷런 모델을 사용하였지만 신경망을 사용하여 학습 및 테스트하는 과정 입니다
+- 오버피팅을 막기위해 
+
+
