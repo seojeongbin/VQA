@@ -7,14 +7,14 @@ import numpy as np
 from pathlib import Path
 import json
 from collections import OrderedDict
-
+from datetime import datetime
 from sympy import Order
+
 '''
 input : video path, resize ratio, frame ratio
 output : path of distorted video
 description : 왜곡을 주고자 하는 비디오 경로 1개를 입력하면 인자로 준 비율에 따라 왜곡된 비디오를 만들어준다
 주의사항 : rr은 낮을수록 , fr은 높을수록 더 왜곡이 강하게 적용된 비디오가 만들어진다
-TODO : 만들어진 비디오에 대한 메타정보를 알려줄 수 있는 기능이 필요함 (json 파일을 같이 만들어준다던가)
 '''
 
 # ========= param =========
@@ -23,7 +23,7 @@ fourcc_MP4V = cv2.VideoWriter_fourcc(*'mp4v')  # 이거로 안하면 오류
 # ========= param =========
 
 
-def down_up_scale(video_path, resize_ratio, frame_ratio):
+def down_up_scale(video_path, resize_ratio, frame_ratio, json_option = True):
 
     # writer_path = '/mnt/data/VQA/video/distorted/down_up_scaled'
     target_w, target_h = (resize_ratio, resize_ratio)
@@ -36,9 +36,9 @@ def down_up_scale(video_path, resize_ratio, frame_ratio):
     total_frame = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
     video_name = Path(video_path).stem
-    # writer_path = '/mnt/data/VQA/video/distorted/down_up_scaled'
-    distort_video_path = writer_path + f'/{video_name}_scaled.mp4'
-    print(f'distort_video_path : {distort_video_path}')
+
+    time_now = datetime.now()
+    distort_video_path = writer_path + f'/{video_name}_scaled_{time_now}.mp4'
     writer = cv2.VideoWriter(distort_video_path,fourcc_MP4V, fps, (width, height)) 
 
     frame_idx = 0
@@ -64,38 +64,16 @@ def down_up_scale(video_path, resize_ratio, frame_ratio):
 
     print(f'=> down up scale 완료')
 
-    ### json 데이터 생성 및 저장 ###
-    
-    file_data = OrderedDict()    
-    file_data['resize_ratio'] = resize_ratio
-    file_data['frame_ratio'] = frame_ratio
+    # json 데이터 생성 및 저장
+    if json_option == True :
+        file_data = OrderedDict()    
+        file_data['resize_ratio'] = resize_ratio
+        file_data['frame_ratio'] = frame_ratio
 
-    json_path = writer_path + f'/{video_name}_scaled.json'
-    with open(json_path, 'w', encoding='utf-8') as make_file :
-        json.dump(file_data, make_file, ensure_ascii=False, indent='\t')
-    print(f'=> json 저장 완료')
-    ### return value : 왜곡된 비디오의 경로 ###
-    return writer_path
+        json_path = writer_path + f'/{video_name}_scaled_{time_now}.json'
+        with open(json_path, 'w', encoding='utf-8') as make_file :
+            json.dump(file_data, make_file, ensure_ascii=False, indent='\t')
+        print(f'=> json 저장 완료')
+        ### return value : 왜곡된 비디오의 경로 ###
+    return distort_video_path
 
-
-# if __name__ == "__main__":
-
-#     now_time = time.time()
-#     now = datetime.datetime.now()
-#     nowDatetime = now.strftime('%H:%M:%S')
-#     print(f'시작시간 : {nowDatetime}') 
-#     # resize 비디오를 만들기 위해 대상이 되는 클린 비디오 경로
-#     video_box = glob.glob(r'D:\glitched_10sec'+'\\*mp4')[:20] # 20개
-#     file_cnt = 1
-
-#     for video in video_box :
-        
-#         frame_ratio = 0.8
-#         resize_ratio = list(np.arange(1,0,-0.025)) # 40개
-
-#         for r in resize_ratio :
-#             down_up_scale(video, r, frame_ratio, file_cnt)
-#             file_cnt +=1
-
-#     print('all done')
-#     print(f'총 소요시간 : {time.time() - now_time} (초)')
