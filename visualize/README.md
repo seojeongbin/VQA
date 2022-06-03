@@ -3,7 +3,7 @@
   ![image](https://user-images.githubusercontent.com/69031537/171773093-85697630-f436-43b8-843b-69a6b66d9c0c.png)
 
 - draw_mos_section_lineplot.py
-  ![image](https://user-images.githubusercontent.com/69031537/171773118-c2ee9361-85d2-4766-975a-56af37c0e13b.png)
+  - ![image](https://user-images.githubusercontent.com/69031537/171773118-c2ee9361-85d2-4766-975a-56af37c0e13b.png)
   
 
 - draw_scatter.py
