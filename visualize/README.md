@@ -1,5 +1,10 @@
 - draw_mos_section.py
   - 한 비디오의 내부 구간에 따른 점수를 시각화 한 코드
+  ![image](https://user-images.githubusercontent.com/69031537/171773093-85697630-f436-43b8-843b-69a6b66d9c0c.png)
+
+- draw_mos_section_lineplot.py
+  ![image](https://user-images.githubusercontent.com/69031537/171773118-c2ee9361-85d2-4766-975a-56af37c0e13b.png)
+  
 
 - draw_scatter.py
   - ground truth(mos)와 preditcion score(pred) 사이의 선형성을 확인해보자 산점도를 그리는 코드
